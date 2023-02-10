@@ -1,0 +1,1031 @@
+#root {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.frame_map, .frame_bot, .frame_details, .frame_reports, .frame_doctors {
+  width: 100%;
+  height: 100%;
+  display: none;
+  overflow-y: scroll;
+}
+
+.container {
+  width: 90%;
+  height: calc(100vh - var(--offset-top));
+  max-height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-top: calc(var(--offset-top) + 2em);
+  margin-bottom: 4em;
+  position: relative;
+  display: none;
+}
+
+.container::after {
+  content: "";
+  display: block;
+  height: var(--docker-height);
+}
+
+/* The header and navigation */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: var(--shadow);
+  background: #fff;
+
+  z-index: 5;
+}
+
+header .menu {
+  width: 90%;
+  height: 75px;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .toggle, header .logo {
+  border-radius: 15px;
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--grey);
+  cursor: pointer;
+}
+
+header .toggle {
+  --width: 41px;
+  --height: 41px;
+  width: var(--width);
+  height: var(--height);
+  cursor: pointer;
+  border: 1px solid var(--grey);
+  border-radius: 50%;
+  font-weight: 700;
+  z-index: 2;
+}
+
+header aside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 250px;
+  width: 100%;
+  height: 100vh;
+  box-shadow: var(--shadow);
+  background: var(--off-white);
+  z-index: 10;
+}
+
+header aside nav {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--white);
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+header aside ul {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  color: var(--grey);
+}
+
+header aside ul.side_nav {
+  flex: 1;
+}
+
+header aside ul.version {
+  font-size: .875em;
+  border-top: 1px solid var(--off-white);
+}
+
+header aside ul.version a {
+  font-weight: 700;
+  color: inherit;
+}
+
+header aside ul.side_nav li {
+  margin: .5em 0;
+}
+
+header aside ul.side_nav li::after {
+  content: 'Not yet available!';
+  font-size: .875em;
+  font-weight: 700;
+  color: var(--gradient-b);
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+header aside ul.side_nav li a {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  border: 1px solid var(--off-white);
+  padding: .5em;
+  border-radius: 15px;
+}
+
+header aside ul.side_nav .large_icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 15px;
+  border: 1px solid var(--grey);
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  margin-right: .75em;
+  font-weight: 700;
+  color: var(--grey);
+  cursor: pointer;
+}
+
+header .logo {
+  font-size: 1.4em;
+  color: var(--gradient-b);
+  text-shadow: var(--logo);
+}
+
+header .user {
+  position: relative;
+}
+
+header .user .img {
+  --width: 41px;
+  --height: 41px;
+  width: var(--width);
+  height: var(--height);
+  cursor: pointer;
+  border-radius: 50%;
+  background: var(--off-white);
+  font-weight: 700;
+  z-index: 2;
+}
+
+header .user .img img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+header .user .action {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 43px;
+  min-width: 150px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+header .user .action span {
+  font-size: .875em;
+  padding: .2em 0;
+}
+
+header .user .action span.user_id, header .user .action span.user_name {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+
+header .user .action button.log_out, header .user .action span.sign_in {
+  margin-top: 1em;
+  align-self: center;
+}
+
+header .user .action button.user_sign_in, header .user .action button.log_out {
+  font-size: 1em;
+  padding: .6em;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%;
+  background: var(--white);
+  transition: all .4s;
+}
+
+header .user .action button.user_sign_in:hover, header .user .action button.log_out:hover {
+  background: var(--off-white);
+  color: var(--white);
+}
+
+
+/* map frame */
+.frame_map, .frame_map .container {
+  display: block;
+}
+
+.switch {
+  --width: 49px;
+  --height: 49px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 2em;
+  width: var(--width);
+  height: var(--height);
+}
+
+.switch .icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 2em;
+}
+
+.ambulance {
+  --width: 200px;
+  --height: auto;
+  position: absolute;
+  right: 0;
+  bottom: 0 ;
+  margin-bottom: 2em;
+  width: var(--width);
+  height: var(--height);
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  cursor: pointer !important;
+}
+
+.ambulance .icon {
+  width: 49px;
+  height: 49px;
+  min-width: 49px;
+  min-height: 49px;
+  border-radius: 15px;
+  background: var(--gradient);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 2em;
+}
+
+.ambulance .text {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 0 2em;
+}
+
+/* bot frame */
+.frame_bot, .frame_bot .container {
+  display: block;
+}
+
+.frame_bot {
+  background: url('/3d-female-medical-figure-with-spine-yoga-position.jpg') no-repeat center center/contain;
+}
+
+.chat {
+  --width: 500px;
+  width: var(--width);
+  max-width: 500px;
+  height: 70%;
+  max-height: 600px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  padding: 2em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 1em;
+  margin-left: calc(50% - var(--width)/2);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat .text {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2em;
+}
+
+.chat .text .logo {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: var(--gradient-b);
+  margin-bottom: 1em;
+  font-size: 1.4em;
+  color: var(--gradient-b);
+  text-shadow: var(--logo);
+}
+
+.chat .text h3 {
+  line-height: 1;
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: .5em;
+}
+
+.chat .text p {
+  color: var(--grey);
+  font-weight: 500;
+}
+
+.chat form {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+  margin-top: 2em;
+  max-height: 200px;
+}
+
+.chat textarea {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-style: inherit;
+  background: var(--off-white);
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  padding: 1em;
+  resize: unset;
+}
+
+.chat button {
+  width: 45px;
+  height: 45px;
+  border-radius: 15px;
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 700;
+  margin: .5em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.chat .closeBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  margin: 2em;
+  font-weight: 700;
+  color: var(--grey);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.response {
+  width: 100%;
+  height: auto;
+}
+
+.response .text {
+  width: 100%;
+  height: auto;
+}
+
+.response .text h3 {
+  line-height: 1;
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: .5em;
+  display: flex;
+  align-items: center;
+}
+
+.response .text h3 .icon {
+  display: grid;
+  place-items: center;
+  margin-right: .5em;
+}
+
+.response .text p {
+  color: var(--grey);
+  font-weight: 500;
+}
+
+.response .diagnosis {
+  width: 90%;
+  height: auto;
+  background: var(--off-white);
+  border-radius: 15px;
+  flex: 1;
+  padding: 1em;
+  margin-top: 2em;
+  margin-left: 10%;
+}
+
+
+.inquire {
+  --width: 200px;
+  --height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 2em;
+  margin-left: calc(50% - var(--width)/2);
+  width: var(--width);
+  height: var(--height);
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  cursor: pointer !important;
+}
+
+.inquire .icon {
+  width: 49px;
+  height: 49px;
+  min-width: 49px;
+  min-height: 49px;
+  border-radius: 15px;
+  background: var(--gradient);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 2em;
+}
+
+.inquire .text {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 0 2em;
+}
+
+.diagnosing {
+  --width: 200px;
+  --height: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 2em;
+  margin-left: calc(50% - var(--width)/2);
+  width: var(--width);
+  height: var(--height);
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  cursor: pointer !important;
+}
+
+.diagnosing .icon {
+  width: 49px;
+  height: 49px;
+  min-width: 49px;
+  min-height: 49px;
+  border-radius: 15px;
+  background: var(--gradient);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 2em;
+}
+
+.diagnosing .text {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  padding: 0 2em;
+}
+
+/* Doctor frame */
+.frame_doctors, .frame_doctors .container {
+  display: block;
+}
+
+.search_doc {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 2em;
+}
+
+.search_doc input {
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-style: inherit;
+  background: var(--off-white);
+  flex: 1;
+  width: 100%;
+  height: 49px;
+  border-radius: 15px;
+  padding: 1em;
+  resize: unset;
+  flex: 1;
+}
+
+.search_doc button {
+  width: 45px;
+  height: 45px;
+  border-radius: 15px;
+  background: var(--gradient);
+  color: #fff;
+  font-weight: 700;
+  margin: .5em;
+  font-size: 1.8em;
+  display: grid;
+  place-items: center;
+}
+
+.doctors {
+  width: 100%;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.doctors .doctor {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 2em;
+  border-bottom: 1px solid var(--off-white);
+}
+
+.doctors .doctor:last-child {
+  border-bottom: none;
+}
+
+.doctors .image {
+  --width: 59px;
+  --height: 59px;
+  width: var(--width);
+  height: var(--height);
+  min-width: var(--width);
+  min-height: var(--height);
+  border-radius: 15px;
+  background: var(--off-white);
+  object-fit: cover;
+}
+
+.doctors .detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: .5em;
+  margin-left: .5em;
+}
+
+.doctors .detail .name {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: .5em;
+}
+
+.doctors .detail .title {
+  font-size: 1em;
+  color: var(--grey);
+}
+
+.doctors .connect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.doctors .connect > span {
+  font-size: .75em;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+}
+
+.doctors .connect span.available {
+  margin-top: 1em;
+  font-weight: 500;
+  font-size: .7em;
+}
+
+.doctors .connect > ul {
+  display: flex;
+}
+
+.doctors .connect .icon {
+  --width: 31px;
+  --height: 31px;
+  width: var(--width);
+  height: var(--height);
+  min-width: var(--width);
+  min-height: var(--height);
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  background: var(--white);
+  color: var(--gradient-b);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+/* Medical reports/records */
+.frame_reports, .frame_reports .container {
+  display: block;
+}
+
+.frame_reports {
+  background: rgba(255, 255, 255, .27) url('/human-body-legs.jpg') no-repeat center center/contain;
+  background-blend-mode: lighten;
+}
+
+.medical_reports > div {
+  width: 100%;
+  height: auto;
+  background: transparent;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  margin-top: 2em;
+}
+
+.medical_reports .title_group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
+.medical_reports .title_group .title {
+  display: flex;
+  font-size: .875em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: #000;
+}
+
+.medical_reports .title_group .see_more {
+  font-size: .875em;
+  font-weight: 700;
+  color: var(--gradient-b);
+}
+
+.medical_reports li {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
+.medical_reports li > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: .75em;
+}
+
+.medical_reports li > div:last-child {
+  margin-right: 0;
+}
+
+.medical_reports li > div > .sub_title {
+  color: var(--grey);
+}
+
+/* Home/Profile frame */
+.frame_details, .frame_details .container {
+  display: block;
+}
+/* 
+.frame_details {
+  background: rgba(255, 255, 255, .27) url('/human-body-legs.jpg') no-repeat center center/contain;
+  background-blend-mode: lighten;
+} */
+.personal_details .bio_data, .personal_details .insurance {
+  padding: 2em;
+  margin: 2em 0;
+  box-shadow: var(--shadow);
+  border-radius: 15px;
+  background: #fff;
+}
+
+.personal_details .title_group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
+.personal_details .title_group .title {
+  display: flex;
+  font-size: .875em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: #000;
+}
+
+.personal_details .title_group .edit {
+  font-size: .875em;
+  font-weight: 700;
+  color: var(--gradient-b);
+}
+
+.personal_details main {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.personal_details main > div {
+  margin-right: 2em;
+}
+
+.personal_details label {
+  display: flex;
+  font-size: .75em;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: var(--grey);
+  margin-bottom: .5em;
+}
+
+.personal_details input, .personal_details select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight: 500;
+  font-size: 1em;
+  color: #000;
+  width: auto !important;
+}
+
+.personal_details .cover {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: 1em 0;
+}
+
+.personal_details .cover img {
+  width: 210px;
+  height: 210px;
+  background: var(--gradient-b);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.personal_details .cover .text {
+  min-width: 150px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.personal_details .cover .text .user_name {
+  line-height: 1;
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: .5em;
+}
+
+.personal_details .cover .text .user_id {
+  color: var(--grey);
+  font-weight: 500;
+}
+
+.personal_details .cover aside {
+  align-self: center;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.personal_details .cover aside .edit {
+  --width: 41px;
+  --height: 41px;
+  width: var(--width);
+  height: var(--height);
+  cursor: pointer;
+  border: 1px solid var(--grey);
+  border-radius: 15px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.view_apt {
+  cursor: pointer;
+  border-radius: 15px;
+  color: var(--grey);
+  font-size: .875em;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em 0;
+  background: var(--gradient);
+  box-shadow: var(--shadow);
+  color: #fff;
+  font-weight: 500;
+}
+
+.appointments {
+  width: 100%;
+  background: #fff;
+  box-shadow: var(--shadow);
+  border-radius: 15px;
+}
+
+.appointments li {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  border-bottom: 1px solid var(--off-white);
+}
+
+.appointments .date {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  font-size: .6em;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: var(--grey);
+}
+
+.appointments .appointment {
+  display: flex;
+  flex-direction: column;
+}
+
+.appointments .appointment .task {
+  font-size: 1em;
+  font-weight: 500;
+  color: #000;
+}
+
+.appointments .appointment .reason {
+  font-size: .875em;
+  color: var(--grey);
+}
+
+/* docker */
+
+.docker {
+  --width: 500px;
+  width: var(--width);
+  max-width: 500px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-left: calc(50% - var(--width)/2);
+  height: var(--docker-height);
+  border-radius: 25px 25px 0 0;
+  box-shadow: var(--shadow);
+  background: #fff;
+}
+
+.docker nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  background: #fff;
+  border-radius: 25px 25px 0 0;
+}
+
+.docker .docker_tab {
+  width: auto;
+  height: 70px;
+  flex: 1;
+  border-radius: 15px;
+  background: #fff;
+  color: var(--grey);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .875em;
+  padding: 1em;
+}
+
+.docker .docker_tab .icon {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-size: 2.5em;
+}
+
+.docker .docker_tab .title {
+  margin-top: .5em;
+}
+
+.docker .docker_tab:nth-child(2) {
+  color: #fff;
+  height: 70px;
+  width: 70px;
+  max-height: 70px;
+  max-width: 70px;
+  border-radius: 50%;
+  background: var(--gradient);
+  box-shadow: var(--shadow-deep);
+  transform: translateY(-10px);
+}
+
+.docker .docker_tab.active {
+  color: #000;
+}
+
+.docker .docker_tab.active .icon {
+  color: var(--gradient-b);
+}
+
+.docker .docker_tab:nth-child(2).active .icon{
+  color: #fff;
+}
+
+@media only screen and (max-width: 480px) {
+  .chat, .docker {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.close {
+  display: none !important;
+}
