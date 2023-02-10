@@ -77,7 +77,7 @@ const Bot = () => {
             })
         }
 
-        await fetch('http://localhost:8000/bot', newDiagnosis) 
+        await fetch('https://meido.onrender.com/bot', newDiagnosis) 
         .then(response => response.json())
         .then(data => {
             setDiagnose(data.diagnosis);
